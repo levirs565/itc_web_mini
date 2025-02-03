@@ -145,6 +145,8 @@ body {
     cursor: pointer;
     position: relative;
     transition: color 250ms ease-in-out;
+    text-decoration: none;
+    color: var(--color-slate-50);
 }
 
 .nav-bar--link:hover {
@@ -562,4 +564,8 @@ body {
 
 .star--animated::after {
     animation: star-shadow-animation var(--animation-duration) ease-in-out infinite both;
+}
+
+.scroll-anchor {
+    scroll-margin: 64px;
 }

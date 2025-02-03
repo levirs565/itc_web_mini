@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateMainHeroAnimationParameters();
 
+    let headerBarIsScrolled = false;
     function updateMainHeroAnimation() {
         const scrollProgress = window.scrollY / window.innerHeight;
         console.log(scrollProgress)
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const morphAlphaProgress = clamp((scrollProgress - delta - 0.75) * morphAlphaFactor, 0, 1);
         // console.log(((scrollProgress - delta - 2.0) * morphAlphaFactor), morphAlphaProgress);
         mainHeroTitle.style.opacity = 1 - morphAlphaProgress;
-        headerBar.style.opacity = morphAlphaProgress;
+        headerTitle.style.opacity = morphAlphaProgress;
 
         delta -= 0.5;
 
@@ -93,6 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const alternateTitleBarFactor = 1.0 / alternateTitleBarDuration;
         const alternateTitleBarScale = clamp((scrollProgress - delta) * alternateTitleBarFactor, 0, 1);
         mainHeroAlternateTitleBar.style.transform = `scaleX(${alternateTitleBarScale})`;
+
+        if (alternateTitleBarScale == 1 && !headerBarIsScrolled) {
+            headerBar.classList.add("header-bar--scrolled");
+            headerBarIsScrolled = true;
+        } else if (alternateTitleBarScale < 1 && headerBarIsScrolled) {
+            headerBar.classList.remove("header-bar--scrolled");
+            headerBarIsScrolled = false;
+        }
     }
 
     updateMainHeroAnimation();

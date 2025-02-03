@@ -313,14 +313,14 @@ body {
         flex-direction: row;
         align-items: start;
     }
-}
 
-.project:nth-child(even) .project--image-wrap {
-    order: 1;
-}
+    .project:nth-child(even) .project--image-wrap {
+        order: 1;
+    }
 
-.project:nth-child(even) .project--details {
-    order: 0;
+    .project:nth-child(even) .project--details {
+        order: 0;
+    }
 }
 
 .main-subtitle {
@@ -462,7 +462,7 @@ body {
 }
 
 .star--animated {
-    animation: star-shadow-animation var(--animation-duration) ease-in-out infinite both;    
+    animation: star-shadow-animation var(--animation-duration) ease-in-out infinite both;
 }
 
 .star--animated::after {

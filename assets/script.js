@@ -140,6 +140,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     window.requestAnimationFrame(meteorAnimation);
 
+    function updateStarAnimation(el) {
+        const leftVw = Math.floor(Math.random() * 90) + 5;
+        const topVh = Math.floor(Math.random() * 90) + 5;
+        
+        el.style.transform = `translate(${leftVw}vw, ${topVh}vh)`;
+        el.style.animationPlayState = "running";
+    }
+
+    function initStarAnimation(el) {
+        el.addEventListener("animationiteration", () => {
+            updateStarAnimation(el);
+        });
+        updateStarAnimation(el);
+    }
+
+    initStarAnimation(document.getElementsByClassName("star-1")[0]);
+    initStarAnimation(document.getElementsByClassName("star-2")[0]);
+
     let windowResizeTimeout = 0;
     function windowResizeListener() {
         updateMainHeroAnimationParameters();

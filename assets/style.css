@@ -377,3 +377,94 @@ body {
 .meteor-5 {
     width: 108px;
 }
+
+.star {
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 0px 0px 8px 2px var(--color-rose-500);
+    width: 4px;
+    height: 4px;
+    border-radius: 99999px;
+    background-color: var(--color-rose-500);
+    opacity: 0;
+}
+
+.star::after {
+    content: "";
+    border-radius: 99999px;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.star-1 {
+    --animation-duration: 7.5s;
+}
+
+.star-2 {
+    --animation-duration: 10s;
+}
+
+.star-1::after {
+    box-shadow: 0px 0px 96px 32px var(--color-rose-500);
+}
+
+.star-2::after {
+    box-shadow: 0px 0px 128px 32px var(--color-rose-500);
+}
+
+@keyframes star-animation {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes star-shadow-animation {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.star--animated {
+    animation: star-shadow-animation var(--animation-duration) ease-in-out infinite both;    
+}
+
+.star--animated::after {
+    animation: star-shadow-animation var(--animation-duration) ease-in-out infinite both;
+}

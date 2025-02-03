@@ -197,10 +197,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerBarBurger = document.getElementsByClassName("header-bar--burger")[0];
     const navBarClose = document.getElementsByClassName("nav-bar--close")[0];
     const navBar = document.getElementsByClassName("nav-bar")[0];
+    
     headerBarBurger.addEventListener("click", () => {
         navBar.classList.toggle("nav-bar--show");
     });
-    navBarClose.addEventListener("click", () => {
+    
+    function closeNavBar() {
         navBar.classList.remove("nav-bar--show");
-    })
+    }
+    navBarClose.addEventListener("click", closeNavBar);
+    for (const el of navBar.getElementsByClassName("nav-bar--link"))
+        el.addEventListener("click", closeNavBar);
 })

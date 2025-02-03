@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(mainTitlePosition)
         morphTitleScaleFactor = headerRect.height / heroRect.height;
     }
-    updateMainHeroAnimationParameters();
 
     let headerBarIsScrolled = false;
     function updateMainHeroAnimation() {
@@ -105,6 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    if (document && document.fonts) {
+        document.fonts.ready.then(() => {
+            updateMainHeroAnimationParameters();
+            updateMainHeroAnimation();
+        });
+    }
+
+    updateMainHeroAnimationParameters();
     updateMainHeroAnimation();
 
     const meteorsAnimation = [
@@ -197,11 +204,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerBarBurger = document.getElementsByClassName("header-bar--burger")[0];
     const navBarClose = document.getElementsByClassName("nav-bar--close")[0];
     const navBar = document.getElementsByClassName("nav-bar")[0];
-    
+
     headerBarBurger.addEventListener("click", () => {
         navBar.classList.toggle("nav-bar--show");
     });
-    
+
     function closeNavBar() {
         navBar.classList.remove("nav-bar--show");
     }

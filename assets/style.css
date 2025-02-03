@@ -161,6 +161,24 @@ body {
     font-weight: 700;
 }
 
+@media (min-width: 640px) {
+
+    .header-bar--burger,
+    .nav-bar--close {
+        display: none;
+    }
+
+    .nav-bar--list {
+        flex-direction: row;
+    }
+
+    .nav-bar {
+        padding: 0;
+        position: relative;
+        transform: translateX(0);
+    }
+}
+
 .main-hero {
     height: 700vh;
 }

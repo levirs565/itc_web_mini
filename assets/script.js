@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateMainHeroAnimation();
 
     const meteorsAnimation = [
-        [document.getElementsByClassName("meteor-1")[0], 1], 
-        [document.getElementsByClassName("meteor-2")[0], 0.9], 
-        [document.getElementsByClassName("meteor-3")[0], 1.1], 
+        [document.getElementsByClassName("meteor-1")[0], 1],
+        [document.getElementsByClassName("meteor-2")[0], 0.9],
+        [document.getElementsByClassName("meteor-3")[0], 1.1],
         [document.getElementsByClassName("meteor-4")[0], 0.8],
         [document.getElementsByClassName("meteor-5")[0], 1.2],
     ].map(([el, velocity]) => ({
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateStarAnimation(el) {
         const leftVw = Math.floor(Math.random() * 90) + 5;
         const topVh = Math.floor(Math.random() * 90) + 5;
-        
+
         el.style.transform = `translate(${leftVw}vw, ${topVh}vh)`;
         el.style.animationPlayState = "running";
     }
@@ -183,4 +183,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     for (const el of projectEls)
         intersectionObserver.observe(el);
+
+    const headerBarBurger = document.getElementsByClassName("header-bar--burger")[0];
+    const navBarClose = document.getElementsByClassName("nav-bar--close")[0];
+    const navBar = document.getElementsByClassName("nav-bar")[0];
+    headerBarBurger.addEventListener("click", () => {
+        navBar.classList.toggle("nav-bar--show");
+    });
+    navBarClose.addEventListener("click", () => {
+        navBar.classList.remove("nav-bar--show");
+    })
 })

@@ -105,7 +105,6 @@ body {
     z-index: 999;
     justify-content: space-between;
     background-color: transparent;
-    transition: background-color 250ms ease-in-out;
 }
 
 .header-bar.header-bar--scrolled {

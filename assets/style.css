@@ -692,7 +692,9 @@ body {
     }
 }
 
-
+.project-nav--item--active {
+    color: var(--color-rose-500);
+}
 
 .project-nav--link {
     height: 48px;
@@ -703,7 +705,7 @@ body {
     white-space: nowrap;
     align-items: center;
     text-decoration: none;
-    color: var(--color-slate-50);
+    color: currentColor;
 }
 
 .project-nav--link::before {

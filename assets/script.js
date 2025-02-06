@@ -216,38 +216,79 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const el of navBar.getElementsByClassName("nav-bar--link"))
         el.addEventListener("click", closeNavBar);
 
-    const projectNavItemTemplate = document.getElementById("project-nav-item-template");
-    const projectNav = document.getElementById("project-nav");
-    const projectNavStickied = document.getElementsByClassName("project-nav--stickied")[0];
-    const projects = [
-        {
-            name: "Space Game",
-            id: "space-game"
-        },
-        {
-            name: "Quran Saleem",
-            id: "quran-saleem" 
-        },
-        {
-            name: "Obsidian Dendron Tree",
-            id: "obsidian-dendron-tree"
-        },
-        {
-            name: "Generator Daftar Pembayaran",
-            id: "generator-daftar-pembayaran"
-        }
-    ];
+    setupProjectNav();
+})
 
-    function createProjectNavElement(project) {
-        const projectEl = projectNavItemTemplate.content.cloneNode(true);
+function setupProjectNav() {
+    const itemTemplate = document.getElementById("project-nav-item-template");
+    const bigNav = document.getElementById("project-nav");
+    const nav = document.getElementsByClassName("project-nav--stickied")[0];
+
+
+    function createProjectNavNode(project) {
+        const projectEl = itemTemplate.content.cloneNode(true);
         const linkEl = projectEl.querySelector("a");
         linkEl.innerText = project.name;
         linkEl.href = `#${project.id}`
         return projectEl;
     }
 
-    for (const project of projects) {
-        projectNav.appendChild(createProjectNavElement(project));
-        projectNavStickied.appendChild(createProjectNavElement(project));
+    const projects = Array.from(document.getElementsByClassName("project")).map((el) => ({
+        name: el.getElementsByClassName("project--title")[0].innerText,
+        id: el.id,
+        isVisible: false,
+        el
+    })).map(project => {
+        const navNode = createProjectNavNode(project);
+        const bigNavNode = createProjectNavNode(project);
+        const result = {
+            ...project,
+            navEl: navNode.children[0],
+            bigNavEl: bigNavNode.children[0]
+        };
+
+        bigNav.appendChild(bigNavNode);
+        nav.appendChild(navNode);
+
+        return result;
+    });
+
+    let lastActive = null;
+
+    function setActiveNav(el, active) {
+        el.classList.toggle("project-nav--item--active", active);
     }
-})
+
+    function setActiveProject(targetProject) {
+        if (lastActive == targetProject) return;
+
+        for (const project of projects) {
+            const active = project == targetProject;
+            setActiveNav(project.navEl, active)
+            setActiveNav(project.bigNavEl, active)
+        }
+
+        if (targetProject)
+            targetProject.navEl.scrollIntoView({
+                behavior: "smooth", block: 'nearest', inline: 'center'
+            })
+
+        lastActive = targetProject;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            const project = projects.find((project) => project.el == entry.target);
+            project.isVisible = entry.isIntersecting;
+        }
+
+        setActiveProject(projects.find((project) => project.isVisible));
+    }, {
+        threshold: [0.0, 1.0],
+        rootMargin: "-45%"
+    });
+
+    for (const project of projects) {
+        observer.observe(project.el);
+    }
+}

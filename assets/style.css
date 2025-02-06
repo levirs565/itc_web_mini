@@ -251,7 +251,6 @@ body {
 }
 
 .main-content {
-    z-index: 100;
     position: relative;
     padding: 16px;
     background-color: var(--color-slate-900);
@@ -569,4 +568,91 @@ body {
 
 .scroll-anchor {
     scroll-margin: 64px;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style-type: none;
+}
+
+.contact {
+    display: grid;
+    padding: 16px;
+    background-color: var(--color-slate-950);
+    border-radius: 16px;
+    row-gap: 4px;
+    column-gap: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    grid-template-areas:
+        "icon title"
+        "icon link";
+    justify-content: start;
+    align-items: center;
+}
+
+.contact > * {
+    z-index: 10;
+}
+
+.contact--icon {
+    width: 32px;
+    height: 32px;
+    grid-area: icon;
+}
+
+.contact--title {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    grid-area: title;
+}
+
+.contact--link {
+    text-decoration: none;
+    color: var(--color-slate-50);
+    grid-area: link;
+}
+
+
+.contact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-color: var(--color-rose-950);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 250ms ease-in-out
+}
+
+.contact:hover::before {
+    transform: scaleX(1);
+}
+
+.contact--link::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+}
+
+@media (min-width: 640px) {
+    .contact-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .contact-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

@@ -215,4 +215,39 @@ document.addEventListener("DOMContentLoaded", () => {
     navBarClose.addEventListener("click", closeNavBar);
     for (const el of navBar.getElementsByClassName("nav-bar--link"))
         el.addEventListener("click", closeNavBar);
+
+    const projectNavItemTemplate = document.getElementById("project-nav-item-template");
+    const projectNav = document.getElementById("project-nav");
+    const projectNavStickied = document.getElementsByClassName("project-nav--stickied")[0];
+    const projects = [
+        {
+            name: "Space Game",
+            id: "space-game"
+        },
+        {
+            name: "Quran Saleem",
+            id: "quran-saleem" 
+        },
+        {
+            name: "Obsidian Dendron Tree",
+            id: "obsidian-dendron-tree"
+        },
+        {
+            name: "Generator Daftar Pembayaran",
+            id: "generator-daftar-pembayaran"
+        }
+    ];
+
+    function createProjectNavElement(project) {
+        const projectEl = projectNavItemTemplate.content.cloneNode(true);
+        const linkEl = projectEl.querySelector("a");
+        linkEl.innerText = project.name;
+        linkEl.href = `#${project.id}`
+        return projectEl;
+    }
+
+    for (const project of projects) {
+        projectNav.appendChild(createProjectNavElement(project));
+        projectNavStickied.appendChild(createProjectNavElement(project));
+    }
 })

@@ -73,8 +73,18 @@
         <div class="main-content">
             <h2 class="main-subtitle scroll-anchor" id="projects">Projects</h2>
 
+            <template id="project-nav-item-template">
+                <li class="project-nav--item">
+                    <a class="project-nav--link"></a>
+                </li>
+            </template>
+            <ul class="project-nav" id="project-nav">
+            </ul>
+            <ul class="project-nav project-nav--stickied">
+            </ul>
+
             <div class="project-list">
-                <div class="project">
+                <div class="project" id="space-game">
                     <div class="project--inner">
                         <div class="project--image-wrap">
                             <img src="./assets/images/project-space.png" class="project--image" />
@@ -98,7 +108,7 @@
                     </div>
                 </div>
 
-                <div class="project">
+                <div class="project" id="quran-saleem">
                     <div class="project--inner">
                         <div class="project--image-wrap">
                             <img src="./assets/images/project-quran-saleem.jpg" class="project--image" />
@@ -128,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="project">
+                <div class="project" id="obsidian-dendron-tree">
                     <div class="project--inner">
                         <div class="project--image-wrap">
                             <img src="./assets/images/project-dendron-tree.png" class="project--image" />
@@ -152,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project">
+                <div class="project" id="generator-daftar-pembayaran">
                     <div class="project--inner">
                         <div class="project--image-wrap">
                             <img src="./assets/images/project-daftar-pembayaran.png" class="project--image" />

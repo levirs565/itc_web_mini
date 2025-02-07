@@ -299,7 +299,7 @@ function setupProjectNav() {
         lastActive = targetProject;
     }
 
-    const observer = new IntersectionObserver((entries) => {
+    const projectObserver = new IntersectionObserver((entries) => {
         for (const entry of entries) {
             const project = projects.find((project) => project.el == entry.target);
             project.isVisible = entry.isIntersecting;
@@ -308,14 +308,26 @@ function setupProjectNav() {
         setActiveProject(projects.find((project) => project.isVisible), false);
     }, {
         threshold: [0.0, 1.0],
-        rootMargin: "-45%"
+        rootMargin: "-45% 0px 0px 0px"
     });
 
     for (const project of projects) {
-        observer.observe(project.el);
+        projectObserver.observe(project.el);
     }
 
     scrollDebounced.addListener(() => {
         setActiveProject(lastActive, true);
     });
+
+    const navObserver = new IntersectionObserver((entries) => {
+        const top = entries[0].boundingClientRect.top
+        const isSticky = !entries[0].isIntersecting && Math.abs(top - 64) <= 1;
+        nav.style.visibility = isSticky ? "visible" : "hidden";
+    }, {
+        threshold: [0.0, 1.0],
+        rootMargin: "-113px 0px 0px 0px" // mustmatch with header height + nav height + 1
+    });
+
+
+    navObserver.observe(nav);
 }

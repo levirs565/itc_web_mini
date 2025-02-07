@@ -677,16 +677,16 @@ body {
 .project-nav--big {
     position: relative;
     flex-wrap: wrap;
-    z-index: 200;
     padding: 4px 16px;
 }
 
 .project-nav--stickied {
+    visibility: hidden;
     position: sticky;
     top: calc(var(--header-height) + 48px);
     flex-wrap: nowrap;
     transform: translateY(-100%);
-    z-index: 100;
+    z-index: 200;
     padding: 0 16px;
     scrollbar-gutter: stable;
     height: 48px;

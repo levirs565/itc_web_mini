@@ -662,17 +662,20 @@ body {
 }
 
 .project-nav {
-    position: relative;
     list-style-type: none;
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    flex-wrap: wrap;
     column-gap: 8px;
-    z-index: 200;
     background-color: var(--color-slate-950);
     margin-left: -16px;
     margin-right: -16px;
+}
+
+.project-nav--big {
+    position: relative;
+    flex-wrap: wrap;
+    z-index: 200;
     padding: 4px 16px;
 }
 
@@ -682,6 +685,7 @@ body {
     flex-wrap: nowrap;
     transform: translateY(-100%);
     z-index: 100;
+    padding: 0 16px;
 }
 
 @media (min-width: 1024px) {
@@ -724,4 +728,17 @@ body {
 
 .project-nav--link:active {
     color: var(--color-rose-400);
+}
+
+.project-nav--stickied::-webkit-scrollbar {
+    height: 6px;
+}
+
+.project-nav--stickied::-webkit-scrollbar-track {
+    background-color: var(--color-slate-950);
+}
+
+.project-nav--stickied::-webkit-scrollbar-thumb {
+    background-color: var(--color-slate-600);
+    border-radius: 8px;
 }

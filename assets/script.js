@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupProjectNav() {
     const itemTemplate = document.getElementById("project-nav-item-template");
-    const bigNav = document.getElementById("project-nav");
+    const bigNav = document.getElementsByClassName("project-nav--big")[0];
     const nav = document.getElementsByClassName("project-nav--stickied")[0];
 
 

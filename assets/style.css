@@ -718,6 +718,10 @@ body {
     .project-nav--big {
         padding: 4px 32px;
     }
+
+    .project-nav--stickied {
+        padding: 0px 32px;
+    }
 }
 
 .project-nav--link {

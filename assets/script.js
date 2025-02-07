@@ -1,3 +1,21 @@
+const scrollDebounced = {
+    listeners: [],
+    lastTimeoout: 0,
+    addListener(listener) {
+        this.listeners.push(listener);
+    },
+    internalListener(ev) {
+        for (const listener of this.listeners) {
+            listener(ev);
+        }
+    },
+};
+
+window.addEventListener("resize", () => {
+    clearTimeout(scrollDebounced.lastTimeoout);
+    scrollDebounced.lastTimeoout = setTimeout(scrollDebounced.internalListener.bind(scrollDebounced), 500);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const headerBar = document.getElementsByClassName("header-bar")[0];
     const mainHeroTitle = document.getElementsByClassName("main-hero--title")[0];
@@ -259,8 +277,8 @@ function setupProjectNav() {
         el.classList.toggle("project-nav--item--active", active);
     }
 
-    function setActiveProject(targetProject) {
-        if (lastActive == targetProject) return;
+    function setActiveProject(targetProject, force) {
+        if (lastActive == targetProject && !force) return;
 
         for (const project of projects) {
             const active = project == targetProject;
@@ -287,7 +305,7 @@ function setupProjectNav() {
             project.isVisible = entry.isIntersecting;
         }
 
-        setActiveProject(projects.find((project) => project.isVisible));
+        setActiveProject(projects.find((project) => project.isVisible), false);
     }, {
         threshold: [0.0, 1.0],
         rootMargin: "-45%"
@@ -296,4 +314,8 @@ function setupProjectNav() {
     for (const project of projects) {
         observer.observe(project.el);
     }
+
+    scrollDebounced.addListener(() => {
+        setActiveProject(lastActive, true);
+    });
 }

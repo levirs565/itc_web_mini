@@ -696,10 +696,6 @@ body {
     }
 }
 
-.project-nav--item--active {
-    color: var(--color-rose-500);
-}
-
 .project-nav--link {
     height: 48px;
     display: flex;
@@ -732,6 +728,12 @@ body {
 
 .project-nav--stickied::-webkit-scrollbar {
     height: 6px;
+}
+
+.project-nav--item--active,
+.project-nav--item--active .project-nav--link:hover,
+.project-nav--item--active .project-nav--link:active {
+    color: var(--color-rose-500);
 }
 
 .project-nav--stickied::-webkit-scrollbar-track {

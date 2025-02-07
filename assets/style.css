@@ -731,17 +731,8 @@ body {
     text-decoration: none;
     color: currentColor;
     padding: 0px 8px;
+    transition: color 350ms ease-in-out;
 }
-
-/* .project-nav--link::before {
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: currentColor;
-    mask: url("./icons/arrow-right-s-line.svg") no-repeat 50% 50%;
-    mask-size: cover;
-} */
 
 .project-nav--link:hover {
     color: var(--color-rose-300);

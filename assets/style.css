@@ -686,6 +686,9 @@ body {
     transform: translateY(-100%);
     z-index: 100;
     padding: 0 16px;
+    scrollbar-gutter: stable;
+    height: 48px;
+    overflow-y: hidden;
 }
 
 @media (min-width: 1024px) {

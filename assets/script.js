@@ -268,10 +268,12 @@ function setupProjectNav() {
             setActiveNav(project.bigNavEl, active)
         }
 
-        if (targetProject)
-            targetProject.navEl.scrollIntoView({
-                behavior: "smooth", block: 'nearest', inline: 'center'
+        if (targetProject) {
+            nav.scrollTo({
+                left: targetProject.navEl.offsetLeft - (window.innerWidth / 2 - targetProject.navEl.offsetWidth / 2),
+                behavior: "smooth"
             })
+        }
 
         lastActive = targetProject;
     }

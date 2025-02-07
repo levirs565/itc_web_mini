@@ -265,7 +265,6 @@ function setupProjectNav() {
         for (const project of projects) {
             const active = project == targetProject;
             setActiveNav(project.navEl, active)
-            setActiveNav(project.bigNavEl, active)
         }
 
         if (targetProject) {
@@ -273,6 +272,10 @@ function setupProjectNav() {
                 left: targetProject.navEl.offsetLeft - (window.innerWidth / 2 - targetProject.navEl.offsetWidth / 2),
                 behavior: "smooth"
             })
+            nav.style.setProperty("--indicator-width", `${targetProject.navEl.offsetWidth + 16}px`);
+            nav.style.setProperty("--indicator-left", `${targetProject.navEl.offsetLeft - 8}px`);
+        } else {
+            nav.style.setProperty("--indicator-width", "0");
         }
 
         lastActive = targetProject;

@@ -214,7 +214,7 @@ function setupHeroAnimation() {
             headerBar.classList.remove("header-bar--scrolled");
             meteorAnimator.requestAnimation();
             starAnimator.enable(true);
-            
+
             headerBarIsScrolled = false;
         }
     }
@@ -234,6 +234,28 @@ function setupHeroAnimation() {
         updateParameters();
         updateAnimation();
     });
+}
+
+function listenFirstVisibleChanges(elements, margin, listener) {
+    const visibilites = elements.map(el => false);
+    let lastFirstVisible = -1;
+
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            visibilites[elements.indexOf(entry.target)] = entry.isIntersecting;
+        }
+
+        const firstVisible = visibilites.indexOf(true);
+        if (lastFirstVisible != firstVisible) {
+            listener(firstVisible);
+            lastFirstVisible = firstVisible;
+        }
+    }, {
+        threshold: [0.0, 1.0],
+        rootMargin: margin
+    })
+
+    for (const el of elements) observer.observe(el);
 }
 
 function setupMainNav() {
@@ -283,7 +305,8 @@ function setupProjectNav() {
         return projectEl;
     }
 
-    const projects = Array.from(document.getElementsByClassName("project")).map((el) => ({
+    const projectElements = Array.from(document.getElementsByClassName("project"));
+    const projects = projectElements.map((el) => ({
         name: el.getElementsByClassName("project--title")[0].innerText,
         id: el.id,
         isVisible: false,
@@ -303,18 +326,10 @@ function setupProjectNav() {
         return result;
     });
 
-    let lastActive = null;
-
-    function setActiveNav(el, active) {
-        el.classList.toggle("project-nav--item--active", active);
-    }
-
-    function setActiveProject(targetProject, force) {
-        if (lastActive == targetProject && !force) return;
-
+    function setActiveProject(targetProject) {
         for (const project of projects) {
             const active = project == targetProject;
-            setActiveNav(project.navEl, active)
+            project.navEl.classList.toggle("project-nav--item--active", active);
         }
 
         if (targetProject) {
@@ -331,24 +346,12 @@ function setupProjectNav() {
         lastActive = targetProject;
     }
 
-    const projectObserver = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-            const project = projects.find((project) => project.el == entry.target);
-            project.isVisible = entry.isIntersecting;
-        }
-
-        setActiveProject(projects.find((project) => project.isVisible), false);
-    }, {
-        threshold: [0.0, 1.0],
-        rootMargin: "-45% 0px 0px 0px"
+    listenFirstVisibleChanges(projectElements, "-45% 0px 0px 0px", (index) => {
+        setActiveProject(index >= 0 ? projects[index] : null)
     });
 
-    for (const project of projects) {
-        projectObserver.observe(project.el);
-    }
-
     resizeDebounced.addListener(() => {
-        setActiveProject(lastActive, true);
+        setActiveProject(lastActive);
     });
 
     const navObserver = new IntersectionObserver((entries) => {

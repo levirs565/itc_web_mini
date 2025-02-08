@@ -113,6 +113,11 @@ const starAnimator = {
 };
 
 function setupHeroAnimation() {
+    meteorAnimator.setup();
+    meteorAnimator.requestAnimation();
+    starAnimator.setup();
+    starAnimator.enable(true);
+
     const headerBar = document.getElementsByClassName("header-bar")[0];
     const title = document.getElementsByClassName("main-hero--title")[0];
     const subtitle = document.getElementsByClassName("main-hero--subtitle")[0];
@@ -201,9 +206,15 @@ function setupHeroAnimation() {
         const headerBarMustScrolled = window.scrollY >= (7 * window.innerHeight - 64);
         if (headerBarMustScrolled && !headerBarIsScrolled) {
             headerBar.classList.add("header-bar--scrolled");
+            meteorAnimator.cancelAnimation();
+            starAnimator.enable(false);
+
             headerBarIsScrolled = true;
         } else if (!headerBarMustScrolled && headerBarIsScrolled) {
             headerBar.classList.remove("header-bar--scrolled");
+            meteorAnimator.requestAnimation();
+            starAnimator.enable(true);
+            
             headerBarIsScrolled = false;
         }
     }
@@ -214,12 +225,6 @@ function setupHeroAnimation() {
             updateAnimation();
         });
     }
-
-    meteorAnimator.setup();
-    meteorAnimator.requestAnimation();
-
-    starAnimator.setup();
-    starAnimator.enable(true);
 
     updateParameters();
     updateAnimation();

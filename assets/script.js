@@ -1,4 +1,4 @@
-const scrollDebounced = {
+const resizeDebounced = {
     listeners: [],
     lastTimeoout: 0,
     addListener(listener) {
@@ -12,8 +12,8 @@ const scrollDebounced = {
 };
 
 window.addEventListener("resize", () => {
-    clearTimeout(scrollDebounced.lastTimeoout);
-    scrollDebounced.lastTimeoout = setTimeout(scrollDebounced.internalListener.bind(scrollDebounced), 500);
+    clearTimeout(resizeDebounced.lastTimeoout);
+    resizeDebounced.lastTimeoout = setTimeout(resizeDebounced.internalListener.bind(resizeDebounced), 500);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -219,7 +219,7 @@ function setupHeroAnimation() {
     updateAnimation();
 
     document.addEventListener("scroll", updateAnimation);
-    scrollDebounced.addListener(() => {
+    resizeDebounced.addListener(() => {
         updateParameters();
         updateAnimation();
     });
@@ -336,7 +336,7 @@ function setupProjectNav() {
         projectObserver.observe(project.el);
     }
 
-    scrollDebounced.addListener(() => {
+    resizeDebounced.addListener(() => {
         setActiveProject(lastActive, true);
     });
 

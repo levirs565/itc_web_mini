@@ -679,12 +679,12 @@ body {
     margin-right: -16px;
     --indicator-width: 0;
     --indicator-left: 0;
+    padding: 0 16px;
 }
 
 .project-nav--big {
     position: relative;
     flex-wrap: wrap;
-    padding: 4px 16px;
 }
 
 .project-nav--stickied {
@@ -694,7 +694,6 @@ body {
     flex-wrap: nowrap;
     transform: translateY(-100%);
     z-index: 200;
-    padding: 0 16px;
     scrollbar-gutter: stable;
     height: 48px;
     overflow-y: hidden;
@@ -721,13 +720,6 @@ body {
     .project-nav {
         margin-left: -32px;
         margin-right: -32px;
-    }
-
-    .project-nav--big {
-        padding: 4px 32px;
-    }
-
-    .project-nav--stickied {
         padding: 0px 32px;
     }
 }

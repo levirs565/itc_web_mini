@@ -35,13 +35,14 @@ const meteorAnimator = {
     states: [],
     animationCallback: undefined,
     animationId: 0,
+    lastTimestamp: 0,
     setup() {
         this.states = [
-            [document.getElementsByClassName("meteor-1")[0], 1],
-            [document.getElementsByClassName("meteor-2")[0], 0.9],
-            [document.getElementsByClassName("meteor-3")[0], 1.1],
-            [document.getElementsByClassName("meteor-4")[0], 0.8],
-            [document.getElementsByClassName("meteor-5")[0], 1.2],
+            [document.getElementsByClassName("meteor-1")[0], 60], // second arg is velocity (pixel per second)
+            [document.getElementsByClassName("meteor-2")[0], 54],
+            [document.getElementsByClassName("meteor-3")[0], 66],
+            [document.getElementsByClassName("meteor-4")[0], 48],
+            [document.getElementsByClassName("meteor-5")[0], 72],
         ].map(([el, velocity]) => ({
             translateCount: 0,
             translateX: 0,
@@ -51,12 +52,17 @@ const meteorAnimator = {
         }));
         this.animationCallback = this.animate.bind(this);
     },
-    animate() {
-        const meteorAlphaDuration = 32;
-        const meteorAlphaFactor = 1 / meteorAlphaDuration;
+    animate(timestamp) {
+        const delta = timestamp - this.lastTimestamp;
+        this.lastTimestamp = timestamp;
+        const deltaFraction = delta / 1000.0;
+
+        const alphaDuration = 32;
+        const alphaFactor = 1 / alphaDuration;
         for (const meteor of this.states) {
-            let nextTranslateX = meteor.translateX + meteor.velocity;
-            let nextTranslateY = meteor.translateY + meteor.velocity;
+            const deltaPixel = meteor.velocity * deltaFraction;
+            let nextTranslateX = meteor.translateX + deltaPixel;
+            let nextTranslateY = meteor.translateY + deltaPixel;
             if (nextTranslateY >= window.innerHeight + 200 ||
                 nextTranslateX >= window.innerWidth + 200 ||
                 meteor.translateX == 0) {
@@ -68,7 +74,7 @@ const meteorAnimator = {
             meteor.translateY = nextTranslateY;
             meteor.translateCount++;
             meteor.el.style.transform = `translate(${nextTranslateX}px, ${nextTranslateY}px) rotate(45deg)`;
-            meteor.el.style.opacity = clamp(meteor.translateCount * meteorAlphaFactor, 0, 1);
+            meteor.el.style.opacity = clamp(meteor.translateCount * alphaFactor, 0, 1);
         }
         this.requestAnimation();
     },

@@ -160,7 +160,9 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const meteor of meteorsAnimation) {
             let nextTranslateX = meteor.translateX + meteor.velocity;
             let nextTranslateY = meteor.translateY + meteor.velocity;
-            if (nextTranslateY >= window.innerHeight + 200 || meteor.translateX == 0) {
+            if (nextTranslateY >= window.innerHeight + 200 || 
+                nextTranslateX >= window.innerWidth + 200 ||
+                meteor.translateX == 0) {
                 nextTranslateX = Math.random() * 0.5 * window.innerWidth;;
                 nextTranslateY = Math.random() * 0.5 * window.innerHeight;
                 meteor.translateCount = -1;

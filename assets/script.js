@@ -31,6 +31,10 @@ function lerp(a, b, t) {
     return a + (b - a) * t;
 }
 
+function randBoolean() {
+    return Math.random() >= 0.5;
+}
+
 const meteorAnimator = {
     states: [],
     animationCallback: undefined,
@@ -69,6 +73,7 @@ const meteorAnimator = {
                 nextTranslateX = Math.random() * 0.5 * window.innerWidth;;
                 nextTranslateY = Math.random() * 0.5 * window.innerHeight;
                 meteor.translateCount = -1;
+                meteor.el.classList.toggle("meteor--violet", randBoolean());
             }
             meteor.translateX = nextTranslateX;
             meteor.translateY = nextTranslateY;
@@ -110,7 +115,7 @@ const starAnimator = {
         const topVh = Math.floor(Math.random() * 90) + 5;
 
         el.style.transform = `translate(${leftVw}vw, ${topVh}vh)`;
-        el.style.animationPlayState = "running";
+        el.classList.toggle("star--violet", randBoolean());
     },
     enable(enabled) {
         for (const el of this.elements) {

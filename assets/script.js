@@ -81,8 +81,15 @@ const meteorAnimator = {
     requestAnimation() {
         this.animationId = window.requestAnimationFrame(this.animationCallback);
     },
-    cancelAnimation() {
-        window.cancelAnimationFrame(this.animationId);
+    enable(enabled) {
+        if (!enabled) {
+            window.cancelAnimationFrame(this.animationId);
+            for (const { el } of this.states) {
+                el.style.opacity = 0;
+            }
+        } else {
+            this.requestAnimation();
+        }
     }
 };
 
@@ -206,13 +213,13 @@ function setupHeroAnimation() {
         const headerBarMustScrolled = window.scrollY >= (7 * window.innerHeight - 64);
         if (headerBarMustScrolled && !headerBarIsScrolled) {
             headerBar.classList.add("header-bar--scrolled");
-            meteorAnimator.cancelAnimation();
+            meteorAnimator.enable(false);
             starAnimator.enable(false);
 
             headerBarIsScrolled = true;
         } else if (!headerBarMustScrolled && headerBarIsScrolled) {
             headerBar.classList.remove("header-bar--scrolled");
-            meteorAnimator.requestAnimation();
+            meteorAnimator.enable(true);
             starAnimator.enable(true);
 
             headerBarIsScrolled = false;

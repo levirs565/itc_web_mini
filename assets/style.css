@@ -157,6 +157,13 @@ body {
     color: var(--color-rose-700);
 }
 
+.nav-bar--item--active .nav-bar--link,
+.nav-bar--item--active .nav-bar--link:hover,
+.nav-bar--item--active .nav-bar--link:active {
+    color: var(--color-rose-500);
+}
+
+
 .header-bar--title {
     font-size: 1.25rem;
     font-weight: 700;
@@ -696,7 +703,8 @@ body {
 .project-nav--stickied::before {
     content: "";
     position: absolute;
-    top: 24px; /* Better than 50% */
+    top: 24px;
+    /* Better than 50% */
     left: 0px;
     width: var(--indicator-width);
     height: 1px;

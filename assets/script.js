@@ -273,6 +273,16 @@ function setupMainNav() {
     navBarClose.addEventListener("click", closeNavBar);
     for (const el of navBar.getElementsByClassName("nav-bar--link"))
         el.addEventListener("click", closeNavBar);
+
+    const linkElements = Array.from(navBar.getElementsByClassName("nav-bar--item"));;
+    const linkTargets = linkElements.map(itemEl => document.querySelector(itemEl.querySelector("a").getAttribute("href")));
+
+    listenFirstVisibleChanges(linkTargets, "-20% 0px 0px 0px", (index) => {
+        const activeLink = linkElements[index];
+        for (const linkEl of linkElements) {
+            linkEl.classList.toggle("nav-bar--item--active", activeLink == linkEl);
+        }
+    });
 }
 
 function setupProjectAnimation() {

@@ -290,7 +290,8 @@ body {
     transform-style: preserve-3d;
 }
 
-.project::before, .project--image-wrap::before {
+.project::before,
+.project--image-wrap::before {
     content: "";
     position: absolute;
     width: 0;
@@ -308,13 +309,6 @@ body {
 .project--image-wrap::before {
     top: 100%;
     left: 50%;
-}
-
-.project--image-wrap,
-.project--details {
-    flex-basis: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
 }
 
 .project--image-wrap {
@@ -458,6 +452,13 @@ body {
     .project--inner {
         flex-direction: row;
         align-items: start;
+    }
+
+    .project--image-wrap,
+    .project--details {
+        flex-basis: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
     }
 
     .project--image-wrap {

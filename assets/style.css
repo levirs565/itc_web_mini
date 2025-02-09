@@ -838,3 +838,53 @@ body {
     background-color: var(--color-slate-600);
     border-radius: 8px;
 }
+
+.about-me {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 32px;
+}
+
+.about-me--title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.about-me--image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-me--image {
+    width: 256px;
+    height: 256px;
+    border-radius: 100%;
+}
+
+@media (min-width: 1024px) {
+    .about-me {
+        display: grid;
+        grid-template-areas:
+            "title image"
+            "text image";
+        row-gap: 16px;
+        align-items: center;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-me--image-wrapper {
+        grid-area: image;
+    }
+
+    .about-me--title {
+        align-self: end;
+        grid-area: title;
+    }
+
+    .about-me--text {
+        align-self: start;
+        grid-area: text;
+    }
+}

@@ -758,6 +758,7 @@ body {
 .project-nav--big {
     position: relative;
     flex-wrap: wrap;
+    z-index: 10;
 }
 
 .project-nav--stickied {

@@ -844,6 +844,7 @@ body {
     flex-direction: column;
     gap: 32px;
     margin-top: 32px;
+    transform-style: preserve-3d;
 }
 
 .about-me--title {
@@ -855,12 +856,32 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
 }
 
 .about-me--image {
     width: 256px;
     height: 256px;
     border-radius: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.about-me--image-wrapper::before {
+    position: absolute;
+    content: "";
+    display: block;
+    left: 50%;
+    top: 256px;
+    width: 0;
+    height: 0;
+    transform: translateZ(-1px);
+    box-shadow: 0px 0px 128px 128px var(--color-violet-900);
+    background-color: black;
 }
 
 @media (min-width: 1024px) {
@@ -876,6 +897,11 @@ body {
 
     .about-me--image-wrapper {
         grid-area: image;
+    }
+
+    .about-me--image-wrapper::before {
+        left: calc(50% - 128px);
+        top: 50%;
     }
 
     .about-me--title {

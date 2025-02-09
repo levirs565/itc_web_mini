@@ -220,6 +220,7 @@ body {
     left: 0;
     right: 0;
     overflow: hidden;
+    padding: 16px;
 }
 
 .main-hero--title {

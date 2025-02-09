@@ -130,6 +130,7 @@ function setupHeroAnimation() {
     starAnimator.setup();
     starAnimator.enable(true);
 
+    const containerViewport = document.getElementsByClassName("main-hero--viewport")[0];
     const headerBar = document.getElementsByClassName("header-bar")[0];
     const title = document.getElementsByClassName("main-hero--title")[0];
     const subtitle = document.getElementsByClassName("main-hero--subtitle")[0];
@@ -148,6 +149,7 @@ function setupHeroAnimation() {
         }
     };
     let morphTitleScaleFactor = 1;
+    let viewportHeight = 0;
 
     function updateParameters() {
         title.style.transform = "";
@@ -162,11 +164,13 @@ function setupHeroAnimation() {
             y: headerRect.y
         };
         morphTitleScaleFactor = headerRect.height / heroRect.height;
+        viewportHeight = containerViewport.offsetHeight;
     }
 
     let headerBarIsScrolled = false;
     function updateAnimation() {
-        const scrollProgress = window.scrollY / window.innerHeight;
+        if (viewportHeight == 0) return;
+        const scrollProgress = window.scrollY / viewportHeight;
 
         let delta = 0;
         const alphaDuration = 0.5;
@@ -215,7 +219,7 @@ function setupHeroAnimation() {
         const alternateTitleBarScale = clamp((scrollProgress - delta) * alternateTitleBarFactor, 0, 1);
         alternateTitleBar.style.transform = `scaleX(${alternateTitleBarScale})`;
 
-        const headerBarMustScrolled = window.scrollY >= (7 * window.innerHeight - 64);
+        const headerBarMustScrolled = window.scrollY >= (7 * viewportHeight - 64);
         if (headerBarMustScrolled && !headerBarIsScrolled) {
             headerBar.classList.add("header-bar--scrolled");
             meteorAnimator.enable(false);
@@ -348,6 +352,7 @@ function setupProjectNav() {
         return result;
     });
 
+    let lastActive = null;
     function setActiveProject(targetProject) {
         for (const project of projects) {
             const active = project == targetProject;

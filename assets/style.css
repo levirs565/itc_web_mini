@@ -914,3 +914,24 @@ body {
         grid-area: text;
     }
 }
+
+.footer {
+    padding: 16px;
+    position: relative;
+    background-color: var(--color-slate-950);
+}
+
+.footer p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footer svg {
+    color: var(--color-rose-500);
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0px 8px;
+}

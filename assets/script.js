@@ -376,6 +376,12 @@ function setupProjectNav() {
         setActiveProject(lastActive);
     });
 
+    if (document && document.fonts) {
+        document.fonts.ready.then(() => {
+            setActiveProject(lastActive);
+        });
+    }
+
     const navObserver = new IntersectionObserver((entries) => {
         const top = entries[0].boundingClientRect.top
         const isSticky = !entries[0].isIntersecting && Math.abs(top - 64) <= 1;

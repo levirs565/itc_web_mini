@@ -770,7 +770,8 @@ body {
     flex-wrap: nowrap;
     transform: translateY(-100%);
     z-index: 200;
-    scrollbar-gutter: stable;
+    /* scrollbar-gutter: stable; */
+    /* Penyebab keanehan di Chrome DevTools terutama terkait animasi gak jalan */
     height: 48px;
     overflow-y: hidden;
 }
@@ -871,6 +872,8 @@ body {
     -webkit-backdrop-filter: blur(32px);
     padding: 4px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    /* Untuk memfix keanehan di ChromeDevTools terutama terkait website melebihi viewport */
 }
 
 .about-me--image-wrapper::before {
